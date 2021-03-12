@@ -28,6 +28,8 @@ class thing:
 
 def main():
     
+    points = 0
+    
     BG = pygame.image.load("background100%.png")
     
     trash = [0]*10
@@ -60,6 +62,8 @@ def main():
         screen.blit(PlasticMetalBinIMG, (740,470))
         pygame.draw.rect(screen, BarColor, [80, 30, progress*3, 30])
         pygame.draw.rect(screen, (0,0,0), [80, 30, 300, 30], 3)
+        Score_display = main_font.render(f"Player score : {points}",1 , (0,0,0))
+        screen.blit(Score_display, (700,20))
         
         
         for i in range(0, 10):
@@ -129,14 +133,17 @@ def main():
                     if(trash[i].Bin == 1):
                         trash[i].x = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x) + 480
                         progress += 6
+                        points += 10
                 if keys[pygame.K_2]:
                     if(trash[i].Bin == 2):
                         trash[i].x = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x) + 480
                         progress += 6
+                        points += 10
                 if keys[pygame.K_3]:
                     if(trash[i].Bin == 3):
                         trash[i].x = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x) + 480
                         progress += 6
+                        points += 10
                 if keys[pygame.K_4]:
                     running = 2
                         
