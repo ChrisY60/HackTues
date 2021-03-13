@@ -23,6 +23,7 @@ class thing:
         self.y = y
         self.Bin = Bin
 
+        
 def main_menu():
     music = pygame.mixer.music.load('./music/Chill.mp3')
     pygame.mixer.music.play(-1)
@@ -42,15 +43,19 @@ def main_menu():
         
 def main():
     
+    TrashSpeed = 5
+    ProgressSpeed = 0.1
+    lastX = 0
+    
     music = pygame.mixer.music.load('./music/ingame_music.mp3')
     pygame.mixer.music.play(-1)
     
     BG = pygame.image.load("./Assets/background100%.png")
     
+    
     trash = [0]*10
     for i in range (0, 10):
         trash[i] = thing((1200+(i*250)), 780, random.randint(1, 3))
-    
     main_font = pygame.font.SysFont("MV Boli", 45)
     
     GlassBinIMG = pygame.image.load("./Assets/GlassBin.png")
@@ -98,12 +103,14 @@ def main():
     running = 1
     while (running == 1):
         
-        progress -= 0.1
+        progress -= ProgressSpeed
         drawing()
         
         
+        lastX = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x)
+        
         for i in range (0, 10):
-            trash[i].x = trash[i].x - 5
+            trash[i].x = trash[i].x - TrashSpeed
             if trash[i].x <= -80:
                 trash[i].x = 2500
                 trash[i].Bin = random.randint(1,3)
@@ -136,20 +143,29 @@ def main():
             if(trash[i].x > 180 and trash[i].x < 380):
                 if keys[pygame.K_1]:
                     if(trash[i].Bin == 1):
-                        trash[i].x = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x) + 480
+                        trash[i].x = lastX + 480
                         progress += 6
                         points += 10
                 if keys[pygame.K_2]:
                     if(trash[i].Bin == 2):
-                        trash[i].x = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x) + 480
+                        trash[i].x = lastX + 480
                         progress += 6
                         points += 10
                 if keys[pygame.K_3]:
                     if(trash[i].Bin == 3):
-                        trash[i].x = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x) + 480
+                        trash[i].x = lastX + 480
                         progress += 6
                         points += 10
-                        
+            if keys[pygame.K_ESCAPE]:
+                ProgressSpeed = 0
+                TrashSpeed = 0
+
+            else:
+                ProgressSpeed = 0.1
+                TrashSpeed = 5
         clock.tick(60)
         
+        
+
+
 main_menu()
