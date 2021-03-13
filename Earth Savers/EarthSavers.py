@@ -58,16 +58,7 @@ def main_menu():
         pygame.display.update()
         clock.tick(60)
 
-   # run = True
-    #while run:
-    #    screen.blit(main_menuIMG, (0, 0))
-     #   pygame.display.update()
-     #   for event in pygame.event.get():
-      #      if event.type == pygame.QUIT:
-        #        run = False
-        #    if event.type == pygame.MOUSEBUTTONDOWN:
-       #         main()
-   # pygame.quit()
+
 
 def difficulty():
     running = True
@@ -121,11 +112,16 @@ def main():
     
     BG = pygame.image.load("./Assets/background100%.png")
     
-    
     trash = [0]*10
     for i in range (0, 10):
         trash[i] = thing((1200+(i*250)), 780, random.randint(1, 3))
+        
     main_font = pygame.font.SysFont("MV Boli", 45)
+    end_font = pygame.font.SysFont("Stencil", 45)
+    
+    END = pygame.image.load("./Assets/End_screen.png")
+    ENDX = 1300
+    ENDY = 0
     
     GlassBinIMG = pygame.image.load("./Assets/GlassBin.png")
     PaperBinIMG = pygame.image.load("./Assets/PaperBin.png")
@@ -143,6 +139,8 @@ def main():
     BarColor = (33, 194, 27)
 
     def drawing():
+
+        
         
         screen.blit(BG, (0,0))
         screen.blit(GlassBinIMG, (220,470))
@@ -151,7 +149,9 @@ def main():
         pygame.draw.rect(screen, BarColor, [80, 30, progress*3, 30])
         pygame.draw.rect(screen, (0,0,0), [80, 30, 300, 30], 3)
         Score_display = main_font.render(f"Player score : {points}",1 , (0,0,0))
+        End_Score_display = end_font.render(f"Player score : {points}",1 , (0,0,0))
         screen.blit(Score_display, (700,20))
+        
         
         
         for i in range(0, 10):
@@ -167,6 +167,12 @@ def main():
         pygame.draw.rect(screen, (0,0,0), [0, 770, 1200, 100], 2)           
         screen.blit(GreatIMG, (380, 15))
         screen.blit(TerribleIMG, (30, 15))
+        screen.blit(END, (ENDX, ENDY))
+        
+        if(ENDX == 0 and ENDY == 0):
+            screen.blit(End_Score_display, (width/2-140,height/2))
+        
+        
         pygame.display.update()
     
     running = 1
@@ -203,6 +209,9 @@ def main():
         
         if progress > 100:
             progress = 100
+        if progress <= 0 :
+            ENDX = 0
+            ENDY = 0
         
                 
         for event in pygame.event.get():
