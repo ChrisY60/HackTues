@@ -16,13 +16,34 @@ pygame.display.set_caption(CAPTION)
 clock = pygame.time.Clock()
 
 
+
 class thing:
     def __init__(self, x, y, Bin):
         self.x = x
         self.y = y
         self.Bin = Bin
 
+def main_menu():
+    music = pygame.mixer.music.load('./music/Chill.mp3')
+    pygame.mixer.music.play(-1)
+    
+    main_menuIMG = pygame.image.load("./Assets/main_menu.png")
+    
+    run = True
+    while run:
+        screen.blit(main_menuIMG, (0,0))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
+    pygame.quit()
+        
 def main():
+    
+    music = pygame.mixer.music.load('./music/ingame_music.mp3')
+    pygame.mixer.music.play(-1)
     
     BG = pygame.image.load("./Assets/background100%.png")
     
@@ -37,6 +58,11 @@ def main():
     PlasticMetalBinIMG = pygame.image.load("./Assets/PlasticMetalBin.png")
     GreatIMG = pygame.image.load("./Assets/GREAT.png")
     TerribleIMG = pygame.image.load("./Assets/TERRIBLE.png")
+    
+    
+    GlassBottleIMG = pygame.image.load("./Assets/glass_bottle.png")
+    BoxIMG = pygame.image.load("./Assets/box.png")
+    BagIMG = pygame.transform.scale(pygame.image.load("./Assets/plastic_bag.png"), (90, 90))
     
     points = 0
     progress = 100
@@ -56,13 +82,11 @@ def main():
         
         for i in range(0, 10):
             if(trash[i].Bin == 1):
-                pygame.draw.rect(screen, (0,255,0), [trash[i].x, trash[i].y, 80, 80])
+                screen.blit(GlassBottleIMG,(trash[i].x, trash[i].y))
             if(trash[i].Bin == 2):
-                pygame.draw.rect(screen, (0,0,255), [trash[i].x, trash[i].y, 80, 80])
+                screen.blit(BoxIMG,(trash[i].x, trash[i].y))
             if(trash[i].Bin == 3):
-                pygame.draw.rect(screen, (255,255,0), [trash[i].x, trash[i].y, 80, 80])
-            if(trash[i].Bin == 4):
-                pygame.draw.rect(screen, (0,0,0), [trash[i].x, trash[i].y, 80, 80])
+                screen.blit(BagIMG,(trash[i].x, trash[i].y))
                 
                 
         pygame.draw.rect(screen, (0,0,0), [180, 770, 200, 100], 5)
@@ -73,12 +97,13 @@ def main():
     
     running = 1
     while (running == 1):
+        
         progress -= 0.1
         drawing()
         
         
         for i in range (0, 10):
-            trash[i].x = trash[i].x - 5  
+            trash[i].x = trash[i].x - 5
             if trash[i].x <= -80:
                 trash[i].x = 2500
                 trash[i].Bin = random.randint(1,3)
@@ -127,4 +152,4 @@ def main():
                         
         clock.tick(60)
         
-main()
+main_menu()
