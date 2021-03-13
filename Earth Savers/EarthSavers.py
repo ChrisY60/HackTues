@@ -6,7 +6,7 @@ import sys
 pygame.init ()
 
 CAPTION = "Earth Savers"
-ICON = pygame.transform.scale(pygame.image.load('./Assets/GREAT.png'), (50, 50))
+ICON = pygame.transform.scale(pygame.image.load('./Assets/icons/GREAT.png'), (50, 50))
 width = 1200
 height = 900
 
@@ -18,15 +18,15 @@ clock = pygame.time.Clock()
 click = False
 
 def main_menu():
-
+    main_font = pygame.font.SysFont("MV Boli", 45)
     music = pygame.mixer.music.load('./music/Chill.mp3')
     pygame.mixer.music.play(-1)
 
-    main_menuIMG = pygame.image.load("./Assets/main_menu.png")
-
+    main_menuIMG = pygame.image.load("./Assets/backgrounds/main_menu.png")
+    
     while True:
 
-        screen.fill((0, 0, 0))
+        screen.blit(main_menuIMG, (0,0))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -41,6 +41,10 @@ def main_menu():
                 difficulty()
         pygame.draw.rect(screen, (150, 150, 150), button_1)
         pygame.draw.rect(screen, (150, 150, 150), button_2)
+        screen.blit(main_font.render("Play",1 , (255,255,255)), (230,690))
+        screen.blit(main_font.render("Difficulty",1 , (255,255,255)), (805,690))
+        
+        
 
         click = False
         for event in pygame.event.get():
@@ -61,9 +65,14 @@ def main_menu():
 
 
 def difficulty():
+    
+    main_menuIMG = pygame.image.load("./Assets/backgrounds/main_menu.png")
+    main_font = pygame.font.SysFont("MV Boli", 45)
+    
     running = True
     while running:
-        screen.fill((0, 0, 0))
+        
+        screen.blit(main_menuIMG, (0,0))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -84,6 +93,10 @@ def difficulty():
         pygame.draw.rect(screen, (150, 150, 150), button_1)
         pygame.draw.rect(screen, (150, 150, 150), button_2)
         pygame.draw.rect(screen, (150, 150, 150), button_3)
+        
+        screen.blit(main_font.render("Easy",1 , (255,255,255)), (240, 690))
+        screen.blit(main_font.render("Medium",1 , (255,255,255)), (520, 690))
+        screen.blit(main_font.render("Hard",1 , (255,255,255)), (840, 690))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -110,7 +123,7 @@ def main():
     music = pygame.mixer.music.load('./music/ingame_music.mp3')
     pygame.mixer.music.play(-1)
     
-    BG = pygame.image.load("./Assets/background100%.png")
+    BG = pygame.image.load("./Assets/backgrounds/background100%.png")
     
     trash = [0]*10
     for i in range (0, 10):
@@ -119,20 +132,20 @@ def main():
     main_font = pygame.font.SysFont("MV Boli", 45)
     end_font = pygame.font.SysFont("Stencil", 45)
     
-    END = pygame.image.load("./Assets/End_screen.png")
+    END = pygame.image.load("./Assets/backgrounds/End_screen.png")
     ENDX = 1300
     ENDY = 0
     
-    GlassBinIMG = pygame.image.load("./Assets/GlassBin.png")
-    PaperBinIMG = pygame.image.load("./Assets/PaperBin.png")
-    PlasticMetalBinIMG = pygame.image.load("./Assets/PlasticMetalBin.png")
-    GreatIMG = pygame.image.load("./Assets/GREAT.png")
-    TerribleIMG = pygame.image.load("./Assets/TERRIBLE.png")
+    GlassBinIMG = pygame.image.load("./Assets/bins/GlassBin.png")
+    PaperBinIMG = pygame.image.load("./Assets/bins/PaperBin.png")
+    PlasticMetalBinIMG = pygame.image.load("./Assets/bins/PlasticMetalBin.png")
+    GreatIMG = pygame.image.load("./Assets/icons/GREAT.png")
+    TerribleIMG = pygame.image.load("./Assets/icons/TERRIBLE.png")
     
     
-    GlassBottleIMG = pygame.image.load("./Assets/glass_bottle.png")
-    BoxIMG = pygame.image.load("./Assets/box.png")
-    BagIMG = pygame.transform.scale(pygame.image.load("./Assets/plastic_bag.png"), (90, 90))
+    GlassBottleIMG = pygame.image.load("./Assets/trash/glass_bottle.png")
+    BoxIMG = pygame.image.load("./Assets/trash/box.png")
+    BagIMG = pygame.transform.scale(pygame.image.load("./Assets/trash/plastic_bag.png"), (90, 90))
     
     points = 0
     progress = 100
@@ -191,21 +204,21 @@ def main():
                 trash[i].Bin = random.randint(1,3)
         
         if progress < 10 :
-            BG = pygame.image.load("./Assets/background10%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background10%.png")
         if progress < 20 and progress > 10:
-            BG = pygame.image.load("./Assets/background20%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background20%.png")
         if progress < 30 and progress > 20:
-            BG = pygame.image.load("./Assets/background30%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background30%.png")
         if progress < 40 and progress > 30:
-            BG = pygame.image.load("./Assets/background40%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background40%.png")
         if progress < 50 and progress > 40:
-            BG = pygame.image.load("./Assets/background50%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background50%.png")
         if progress < 60 and progress > 50:
-            BG = pygame.image.load("./Assets/background60%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background60%.png")
         if progress < 70 and progress > 60:
-            BG = pygame.image.load("./Assets/background70%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background70%.png")
         if progress < 100 and progress > 70:
-            BG = pygame.image.load("./Assets/background100%.png")
+            BG = pygame.image.load("./Assets/backgrounds/background100%.png")
         
         if progress > 100:
             progress = 100
