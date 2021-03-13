@@ -110,7 +110,6 @@ class thing:
         self.x = x
         self.y = y
         self.Bin = Bin
-        
 def main():
     
     TrashSpeed = 5
@@ -223,25 +222,25 @@ def main():
                         trash[i].x = lastX + 480
                         progress += 6
                         points += 10
-                    else:
-                        progress -= punish
+                        
                 if keys[pygame.K_2]:
                     if (trash[i].Bin == 2):
                         trash[i].x = lastX + 480
                         progress += 6
                         points += 10
-                    else:
-                        progress -= punish
+                        
                 if keys[pygame.K_3]:
                     if (trash[i].Bin == 3):
                         trash[i].x = lastX + 480
                         progress += 6
                         points += 10
-                    else:
-                        progress -= punish
-                for i in range(0, 10):
-                    if (trash[i].x <= 0):
-                        progress -= punish * 2
+                        
+        for i in range(0, 10):
+            if (trash[i].x <= -70):
+                progress -= punish * 2
+                trash[i].x = 2500
+                trash[i].Bin = random.randint(1,3)
+                        
             if keys[pygame.K_ESCAPE]:
                 ProgressSpeed = 0
                 TrashSpeed = 0
