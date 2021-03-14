@@ -151,20 +151,13 @@ class thing:
         self.y = y
         self.Bin = Bin
         self.ID = ID
-        
-        
-
-
-        
-        
-        
+   
         
 def main():
     global points
     
     TrashSpeed = 5
     ProgressSpeed = 0.1
-    lastX = 0
     
     Glasses = 0
     GlassBottles = 0
