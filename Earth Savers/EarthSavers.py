@@ -1,5 +1,4 @@
 import pygame
-import time
 import random
 import sys
 
@@ -18,6 +17,8 @@ clock = pygame.time.Clock()
 click = False
 
 counter = 0
+points = 0
+var = 0
 
 def main_menu():
     global counter, click
@@ -159,6 +160,7 @@ class thing:
         
         
 def main():
+    global points
     
     TrashSpeed = 5
     ProgressSpeed = 0.1
@@ -209,8 +211,7 @@ def main():
     BarColor = (33, 194, 27)
 
     def drawing():
-
-        
+        global points, var
         
         screen.blit(BG, (0,0))
         screen.blit(GlassBinIMG, (220,470))
@@ -220,10 +221,9 @@ def main():
         pygame.draw.rect(screen, (0,0,0), [80, 30, 300, 30], 3)
         Score_display = main_font.render(f"Player score : {points}",1 , (0,0,0))
         End_Score_display = main_font.render(f"PLAYER SCORE : {points}",1 , (0,0,0))
+        Highest_Score_display = main_font.render(f"Highest score by now: {var}", 1, (0, 0, 0))
         screen.blit(Score_display, (700,20))
-        
-        
-        
+                
         for i in range(0, 10):
             if(trash[i].Bin == 1):
                 if(trash[i].ID == 1):
@@ -251,7 +251,7 @@ def main():
         screen.blit(END, (ENDX, ENDY))
         
         if(ENDX == 0 and ENDY == 0):
-            screen.blit(End_Score_display, (300,200))
+            screen.blit(End_Score_display, (width / 2 - 140, 10))
             screen.blit(main_font.render(f"Glass bottles missed: {GlassBottles}",1 , (0,0,0)), (300,300))
             screen.blit(main_font.render(f"Glasses missed: {Glasses}",1 , (0,0,0)), (300,400))
             screen.blit(main_font.render(f"Boxes missed: {Boxes}",1 , (0,0,0)), (300,500))
@@ -262,7 +262,18 @@ def main():
             
             for i in range(0, 10):
                 trash[i].x = 1300
-            print(min(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x))
+            with open(account_file, "r") as f:
+                documents = yaml.full_load(f)
+                if documents["score"] > points:
+                    var =  documents["score"]
+                    screen.blit(Highest_Score_display, (width / 2 - 340, height / 2))
+                else:
+                    var = points
+                    documents["score"] = var
+                    screen.blit(Highest_Score_display, (width / 2 - 340, height / 2))
+                with open(account_file, "w") as f1:
+                    yaml.dump(documents, f1)
+
             
         
         
