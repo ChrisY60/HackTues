@@ -17,7 +17,7 @@ pygame.display.set_caption(CAPTION)
 clock = pygame.time.Clock()
 click = False
 
-account_file = "./Assets/bins/Score.yaml"
+account_file = "./Score.yaml"
 
 counter = 0
 points = 0
