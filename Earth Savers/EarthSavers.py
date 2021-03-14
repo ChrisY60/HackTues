@@ -205,7 +205,7 @@ def main():
         pygame.draw.rect(screen, (0, 0, 0), [80, 30, 300, 30], 3)
         Score_display = main_font.render(f"Player score : {points}", 1, (0, 0, 0))
         End_Score_display = main_font.render(f"PLAYER SCORE : {points}", 1, (0, 0, 0))
-        Highest_Score_display = main_font.render(f"Highest score by now: {var}", 1, (0, 0, 0))
+        Highest_Score_display = main_font.render(f"Highscore: {var}", 1, (0, 0, 0))
         screen.blit(Score_display, (700, 20))
 
         for i in range(0, 10):
@@ -247,17 +247,17 @@ def main():
                 documents = yaml.full_load(f)
                 if documents["score"] > points:
                     var = documents["score"]
-                    screen.blit(Highest_Score_display, (width / 2 - 340, height / 2))
+                    screen.blit(Highest_Score_display, (width/2 - 140, 110))
                 else:
                     var = points
                     documents["score"] = var
-                    screen.blit(Highest_Score_display, (width / 2 - 340, height / 2))
+                    screen.blit(Highest_Score_display, (width / 2 - 140, 110))
                 with open(account_file, "w") as f1:
                     yaml.dump(documents, f1)
 
                 mx, my = pygame.mouse.get_pos()
 
-                button_4 = pygame.Rect(200, 750, 200, 50)
+                button_4 = pygame.Rect(850, 800, 200, 50)
                 click = False
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -271,7 +271,7 @@ def main():
                     main_menu()
 
                 pygame.draw.rect(screen, (150, 150, 150), button_4)
-                screen.blit(main_font.render("Play again", 1, (255, 255, 255)), (270, 740))
+                screen.blit(main_font.render("Play again", 1, (255, 255, 255)), (840, 790))
 
         pygame.display.update()
 
@@ -281,8 +281,7 @@ def main():
         progress -= ProgressSpeed
         drawing()
 
-        lastX = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x,
-                    trash[8].x, trash[9].x)
+        lastX = max(trash[0].x, trash[1].x, trash[2].x, trash[3].x, trash[4].x, trash[5].x, trash[6].x, trash[7].x, trash[8].x, trash[9].x)
 
         for i in range(0, 10):
             trash[i].x = trash[i].x - TrashSpeed
@@ -302,7 +301,7 @@ def main():
                         PlasticBags += 1
                     elif trash[i].ID == 2:
                         Cans += 1
-                trash[i].x = 2500
+                trash[i].x = lastX + 280
                 trash[i].Bin = random.randint(1, 3)
                 progress -= punish
 
@@ -341,19 +340,19 @@ def main():
             if 180 < trash[i].x < 380:
                 if keys[pygame.K_1]:
                     if trash[i].Bin == 1:
-                        trash[i].x = lastX + 480
+                        trash[i].x = lastX + 280
                         progress += 6
                         points += 10
 
                 if keys[pygame.K_2]:
                     if trash[i].Bin == 2:
-                        trash[i].x = lastX + 480
+                        trash[i].x = lastX + 280
                         progress += 6
                         points += 10
 
                 if keys[pygame.K_3]:
                     if trash[i].Bin == 3:
-                        trash[i].x = lastX + 480
+                        trash[i].x = lastX + 280
                         progress += 6
                         points += 10
 
